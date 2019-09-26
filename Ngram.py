@@ -31,8 +31,23 @@ print(lm.counts)
 
 #This provides a convenient interface to access counts for unigrams…
 lm.counts['a']
+#4569
 
-#…and bigrams (in this case “a b”)
-lm.counts[['moby']]['dick']
+#…and bigrams (in this case “Moby Dick”)
+lm.counts[['Moby']]['Dick']
+#83
+
+#However, the real purpose of training a language model is to have it score how probable words are in certain contexts. This being MLE, the model returns the item’s relative frequency as its score.
+lm.score("whale")
+#0.0032244632122913975
+
+#Items that are not seen during training are mapped to the vocabulary’s “unknown label” token. This is “<UNK>” by default.
+lm.score("<UNK>") == lm.score("Mars")
+#True
+
+#Here’s how you get the score for a word given some preceding context. For example we want to know what is the chance that “Moby” is preceded by “Dick”.
+lm.score("Dick", ["Moby"])
+#0.988
+
 
 
